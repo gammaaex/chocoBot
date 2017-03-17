@@ -5,10 +5,13 @@
 
 slack = require 'hubot-slack'
 
+checker = new ConsecutiveChecker
+
 module.exports = (robot) ->
   robot.adapter.client.rtm.on 'raw_message', (msg) ->
     message = JSON.parse msg
     return unless message.type is 'reaction_added'
+    return unless checker.run(user,event_ts,10)
     switch message.reaction
       when 'gotiusa_tino'
         data =
