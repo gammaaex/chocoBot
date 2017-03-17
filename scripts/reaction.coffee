@@ -11,7 +11,7 @@ module.exports = (robot) ->
   robot.adapter.client.rtm.on 'raw_message', (msg) ->
     message = JSON.parse msg
     return unless message.type is 'reaction_added'
-    return unless checker.run(user,event_ts,10)
+    return unless checker.run(message.user,message.ts,10)
     switch message.reaction
       when 'gotiusa_tino'
         data =
